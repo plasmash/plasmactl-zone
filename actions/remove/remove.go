@@ -5,11 +5,11 @@ import (
 	"strings"
 
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/internal/topology"
+	"github.com/plasmash/plasmactl-zone/internal/topology"
 	"github.com/plasmash/plasmactl-node/pkg/node"
 )
 
-// RemoveResult is the structured result of topology:remove.
+// RemoveResult is the structured result of zone:remove.
 type RemoveResult struct {
 	Zone               string   `json:"zone"`
 	DryRun             bool     `json:"dry_run,omitempty"`
@@ -17,7 +17,7 @@ type RemoveResult struct {
 	AttachedComponents []string `json:"attached_components,omitempty"`
 }
 
-// Remove implements the topology:remove command
+// Remove implements the zone:remove command
 type Remove struct {
 	action.WithLogger
 	action.WithTerm

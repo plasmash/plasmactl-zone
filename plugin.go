@@ -1,5 +1,5 @@
-// Package plasmactltopology implements a launchr plugin with topology management functionality
-package plasmactltopology
+// Package plasmactlzone implements a launchr plugin with zone (topology) management functionality
+package plasmactlzone
 
 import (
 	"context"
@@ -8,12 +8,12 @@ import (
 	"github.com/launchrctl/launchr"
 	"github.com/launchrctl/launchr/pkg/action"
 
-	"github.com/plasmash/plasmactl-topology/actions/add"
-	"github.com/plasmash/plasmactl-topology/actions/list"
-	"github.com/plasmash/plasmactl-topology/actions/query"
-	"github.com/plasmash/plasmactl-topology/actions/remove"
-	"github.com/plasmash/plasmactl-topology/actions/rename"
-	"github.com/plasmash/plasmactl-topology/actions/show"
+	"github.com/plasmash/plasmactl-zone/actions/add"
+	"github.com/plasmash/plasmactl-zone/actions/list"
+	"github.com/plasmash/plasmactl-zone/actions/query"
+	"github.com/plasmash/plasmactl-zone/actions/remove"
+	"github.com/plasmash/plasmactl-zone/actions/rename"
+	"github.com/plasmash/plasmactl-zone/actions/show"
 )
 
 //go:embed actions/*/*.yaml
@@ -91,14 +91,14 @@ func argString(input *action.Input, name string) string {
 // DiscoverActions implements [launchr.ActionDiscoveryPlugin] interface.
 func (p *Plugin) DiscoverActions(_ context.Context) ([]*action.Action, error) {
 	return []*action.Action{
-		createAction("actions/list/list.yaml", "topology:list", func(input *action.Input) actionRunner {
+		createAction("actions/list/list.yaml", "zone:list", func(input *action.Input) actionRunner {
 			return &list.List{
 				Dir:  optString(input, "dir"),
 				Zone: argString(input, "zone"),
 				Tree: optBool(input, "tree"),
 			}
 		}),
-		createAction("actions/show/show.yaml", "topology:show", func(input *action.Input) actionRunner {
+		createAction("actions/show/show.yaml", "zone:show", func(input *action.Input) actionRunner {
 			return &show.Show{
 				Dir:      optString(input, "dir"),
 				Zone:     argString(input, "zone"),
@@ -106,21 +106,21 @@ func (p *Plugin) DiscoverActions(_ context.Context) ([]*action.Action, error) {
 				Kind:     optString(input, "kind"),
 			}
 		}),
-		createAction("actions/add/add.yaml", "topology:add", func(input *action.Input) actionRunner {
+		createAction("actions/add/add.yaml", "zone:add", func(input *action.Input) actionRunner {
 			return &add.Add{
 				Dir:   optString(input, "dir"),
 				Zone:  input.Arg("zone").(string),
 				Force: optBool(input, "force"),
 			}
 		}),
-		createAction("actions/remove/remove.yaml", "topology:remove", func(input *action.Input) actionRunner {
+		createAction("actions/remove/remove.yaml", "zone:remove", func(input *action.Input) actionRunner {
 			return &remove.Remove{
 				Dir:    optString(input, "dir"),
 				Zone:   input.Arg("zone").(string),
 				DryRun: optBool(input, "dry-run"),
 			}
 		}),
-		createAction("actions/rename/rename.yaml", "topology:rename", func(input *action.Input) actionRunner {
+		createAction("actions/rename/rename.yaml", "zone:rename", func(input *action.Input) actionRunner {
 			return &rename.Rename{
 				Dir:    optString(input, "dir"),
 				Old:    input.Arg("old").(string),
@@ -128,7 +128,7 @@ func (p *Plugin) DiscoverActions(_ context.Context) ([]*action.Action, error) {
 				DryRun: optBool(input, "dry-run"),
 			}
 		}),
-		createAction("actions/query/query.yaml", "topology:query", func(input *action.Input) actionRunner {
+		createAction("actions/query/query.yaml", "zone:query", func(input *action.Input) actionRunner {
 			return &query.Query{
 				Dir:        optString(input, "dir"),
 				Identifier: input.Arg("identifier").(string),

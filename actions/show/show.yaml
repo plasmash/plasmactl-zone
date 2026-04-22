@@ -24,7 +24,7 @@ action:
       title: Kind
       description: Filter to allocations or attachments only
       type: string
-      enum: [allocations, attachments]
+      enum: ["", allocations, attachments]
       default: ""
   result:
     type: object

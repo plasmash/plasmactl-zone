@@ -19,7 +19,7 @@ action:
       title: Kind
       description: Narrow search to node or component (searches both if omitted)
       type: string
-      enum: [node, component]
+      enum: ["", node, component]
       default: ""
   result:
     type: object

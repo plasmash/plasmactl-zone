@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/pkg/topology"
+	"github.com/plasmash/plasmactl-zone/pkg/topology"
 	"github.com/plasmash/plasmactl-component/pkg/component"
 	"github.com/plasmash/plasmactl-node/pkg/node"
 )
@@ -35,14 +35,14 @@ func (a AttachmentInfo) DisplayName() string {
 	return component.FormatDisplayName(a.Component, a.Version)
 }
 
-// ShowResult is the structured output for topology:show
+// ShowResult is the structured output for zone:show
 type ShowResult struct {
 	Zone        string           `json:"zone,omitempty"`
 	Allocations []AllocationInfo `json:"allocations,omitempty"`
 	Attachments []AttachmentInfo `json:"attachments,omitempty"`
 }
 
-// Show implements the topology:show command
+// Show implements the zone:show command
 type Show struct {
 	action.WithLogger
 	action.WithTerm

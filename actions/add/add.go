@@ -4,15 +4,15 @@ import (
 	"fmt"
 
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/internal/topology"
+	"github.com/plasmash/plasmactl-zone/internal/topology"
 )
 
-// AddResult is the structured result of topology:add.
+// AddResult is the structured result of zone:add.
 type AddResult struct {
 	Zone string `json:"zone"`
 }
 
-// Add implements the topology:add command
+// Add implements the zone:add command
 type Add struct {
 	action.WithLogger
 	action.WithTerm

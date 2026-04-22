@@ -9,7 +9,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	pkgtopology "github.com/plasmash/plasmactl-topology/pkg/topology"
+	pkgtopology "github.com/plasmash/plasmactl-zone/pkg/topology"
 )
 
 // Topology wraps the public Topology type with write operations.
@@ -17,7 +17,7 @@ type Topology struct {
 	*pkgtopology.Topology
 }
 
-// Node represents a node file from inst/<platform>/nodes/<hostname>.yaml
+// Node represents a node file from platforms/<platform>/nodes/<hostname>.yaml
 type Node struct {
 	Hostname string   `yaml:"hostname"`
 	Zones    []string `yaml:"zones"`
@@ -500,14 +500,14 @@ func zoneToTree(zones []interface{}) interface{} {
 	return result
 }
 
-// LoadNodes loads all nodes from inst/<platform>/nodes/ directory
+// LoadNodes loads all nodes from platforms/<platform>/nodes/ directory
 func LoadNodes(dir, platform string) ([]Node, error) {
 	var nodes []Node
 
-	instDir := filepath.Join(dir, "inst")
+	platformsDir := filepath.Join(dir, "platforms")
 	if platform != "" {
 		// Load from specific platform
-		nodes, err := loadNodesFromPlatform(instDir, platform)
+		nodes, err := loadNodesFromPlatform(platformsDir, platform)
 		if err != nil {
 			return nil, err
 		}
@@ -515,19 +515,19 @@ func LoadNodes(dir, platform string) ([]Node, error) {
 	}
 
 	// Load from all platforms
-	entries, err := os.ReadDir(instDir)
+	entries, err := os.ReadDir(platformsDir)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, nil
 		}
-		return nil, fmt.Errorf("failed to read inst directory: %w", err)
+		return nil, fmt.Errorf("failed to read platforms directory: %w", err)
 	}
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
 		}
-		platformNodes, err := loadNodesFromPlatform(instDir, entry.Name())
+		platformNodes, err := loadNodesFromPlatform(platformsDir, entry.Name())
 		if err != nil {
 			continue // Skip platforms with errors
 		}
@@ -537,8 +537,8 @@ func LoadNodes(dir, platform string) ([]Node, error) {
 	return nodes, nil
 }
 
-func loadNodesFromPlatform(instDir, platform string) ([]Node, error) {
-	nodesDir := filepath.Join(instDir, platform, "nodes")
+func loadNodesFromPlatform(platformsDir, platform string) ([]Node, error) {
+	nodesDir := filepath.Join(platformsDir, platform, "nodes")
 	entries, err := os.ReadDir(nodesDir)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -588,20 +588,20 @@ func NodesForZone(nodes []Node, zonePath string) []Node {
 func LoadNodesByPlatform(dir string) (map[string][]Node, error) {
 	result := make(map[string][]Node)
 
-	instDir := filepath.Join(dir, "inst")
-	entries, err := os.ReadDir(instDir)
+	platformsDir := filepath.Join(dir, "platforms")
+	entries, err := os.ReadDir(platformsDir)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return result, nil
 		}
-		return nil, fmt.Errorf("failed to read inst directory: %w", err)
+		return nil, fmt.Errorf("failed to read platforms directory: %w", err)
 	}
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
 		}
-		nodes, err := loadNodesFromPlatform(instDir, entry.Name())
+		nodes, err := loadNodesFromPlatform(platformsDir, entry.Name())
 		if err != nil {
 			continue
 		}

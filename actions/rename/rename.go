@@ -4,10 +4,10 @@ import (
 	"fmt"
 
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/internal/topology"
+	"github.com/plasmash/plasmactl-zone/internal/topology"
 )
 
-// RenameResult is the structured result of topology:rename.
+// RenameResult is the structured result of zone:rename.
 type RenameResult struct {
 	Old                string   `json:"old"`
 	New                string   `json:"new"`
@@ -16,7 +16,7 @@ type RenameResult struct {
 	UpdatedAllocations []string `json:"updated_allocations,omitempty"`
 }
 
-// Rename implements the topology:rename command
+// Rename implements the zone:rename command
 type Rename struct {
 	action.WithLogger
 	action.WithTerm
@@ -127,7 +127,7 @@ func (r *Rename) executeDryRun() error {
 	var affectedNodeFiles []string
 	for platform, nodes := range nodesByPlatform {
 		for _, n := range topology.NodesForZone(nodes, r.Old) {
-			affectedNodeFiles = append(affectedNodeFiles, fmt.Sprintf("inst/%s/nodes/%s.yaml", platform, n.Hostname))
+			affectedNodeFiles = append(affectedNodeFiles, fmt.Sprintf("platforms/%s/nodes/%s.yaml", platform, n.Hostname))
 		}
 	}
 

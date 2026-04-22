@@ -1,4 +1,4 @@
-module github.com/plasmash/plasmactl-topology
+module github.com/plasmash/plasmactl-zone
 
 go 1.25.0
 

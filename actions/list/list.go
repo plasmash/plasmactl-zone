@@ -6,7 +6,7 @@ import (
 
 	"github.com/launchrctl/launchr"
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/pkg/topology"
+	"github.com/plasmash/plasmactl-zone/pkg/topology"
 	"github.com/plasmash/plasmactl-component/pkg/component"
 	"github.com/plasmash/plasmactl-node/pkg/node"
 )
@@ -18,13 +18,13 @@ type TreeEntry struct {
 	Components []string `json:"components,omitempty"`
 }
 
-// ListResult is the structured output for topology:list
+// ListResult is the structured output for zone:list
 type ListResult struct {
 	Zones []string    `json:"zones"`
 	Tree  []TreeEntry `json:"tree,omitempty"`
 }
 
-// List implements the topology:list command
+// List implements the zone:list command
 type List struct {
 	action.WithLogger
 	action.WithTerm

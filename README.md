@@ -1,10 +1,10 @@
-# plasmactl-topology
+# plasmactl-zone
 
 A [Launchr](https://github.com/launchrctl/launchr) plugin for [Plasmactl](https://github.com/plasmash/plasmactl) that manages the topology structure for Plasma platforms.
 
 ## Overview
 
-`plasmactl-topology` manages the platform's "skeleton" - the structural framework where applications and agents attach. The topology maps logical architecture to physical resources, ensuring components get appropriate compute resources (GPU for AI, storage for data, etc.).
+`plasmactl-zone` manages the platform's "skeleton" - the structural framework where applications and agents attach. The topology maps logical architecture to physical resources, ensuring components get appropriate compute resources (GPU for AI, storage for data, etc.).
 
 ## Features
 
@@ -44,35 +44,35 @@ Each path (e.g., `platform.foundation.cluster.control`) represents a zone that:
 
 ## Commands
 
-### topology:list
+### zone:list
 
 List zones from `topology.yaml`:
 
 ```bash
 # List all zones (flat)
-plasmactl topology:list
+plasmactl zone:list
 
 # List as tree
-plasmactl topology:list --tree
+plasmactl zone:list --tree
 
 # List zone and its children
-plasmactl topology:list platform.interaction
-plasmactl topology:list platform.foundation.cluster --tree
+plasmactl zone:list platform.interaction
+plasmactl zone:list platform.foundation.cluster --tree
 ```
 
 Options:
 - `-t, --tree`: Show as tree instead of flat list
 
-### topology:show
+### zone:show
 
 Show details for a zone:
 
 ```bash
 # Show zone details
-plasmactl topology:show platform.interaction.observability
+plasmactl zone:show platform.interaction.observability
 
 # Filter nodes by platform
-plasmactl topology:show platform.foundation.cluster.control --platform dev
+plasmactl zone:show platform.foundation.cluster.control --platform dev
 ```
 
 Options:
@@ -82,21 +82,21 @@ Output includes:
 - Allocated nodes (from `inst/<platform>/nodes/`)
 - Attached components (from layer playbooks)
 
-### topology:add
+### zone:add
 
 Add a new zone:
 
 ```bash
-plasmactl topology:add platform.interaction.analytics
-plasmactl topology:add platform.cognition.ml.training
+plasmactl zone:add platform.interaction.analytics
+plasmactl zone:add platform.cognition.ml.training
 ```
 
-### topology:remove
+### zone:remove
 
 Remove a zone:
 
 ```bash
-plasmactl topology:remove platform.interaction.legacy
+plasmactl zone:remove platform.interaction.legacy
 ```
 
 **Safety**: Fails if nodes are allocated or components are attached. Use `node:allocate` and `component:detach` first to clean up.
@@ -104,7 +104,7 @@ plasmactl topology:remove platform.interaction.legacy
 ## Project Structure
 
 ```
-plasmactl-topology/
+plasmactl-zone/
 ├── plugin.go                        # Plugin registration
 ├── actions/
 │   ├── add/
@@ -148,10 +148,10 @@ The topology interacts with several locations:
 
 ```bash
 # 1. View current topology structure
-plasmactl topology:list --tree
+plasmactl zone:list --tree
 
 # 2. Add a new zone for analytics
-plasmactl topology:add platform.interaction.analytics
+plasmactl zone:add platform.interaction.analytics
 
 # 3. Allocate nodes to the new zone
 plasmactl node:allocate node001 platform.interaction.analytics
@@ -160,12 +160,12 @@ plasmactl node:allocate node001 platform.interaction.analytics
 plasmactl component:attach interaction.applications.analytics platform.interaction.analytics
 
 # 5. Verify the setup
-plasmactl topology:show platform.interaction.analytics
+plasmactl zone:show platform.interaction.analytics
 
 # 6. Remove a legacy zone (after cleanup)
 plasmactl node:allocate node001 platform.interaction.legacy-
 plasmactl component:detach interaction.applications.old platform.interaction.legacy
-plasmactl topology:remove platform.interaction.legacy
+plasmactl zone:remove platform.interaction.legacy
 ```
 
 ## Related Commands

@@ -180,8 +180,8 @@ func updateHostsInNode(node *yaml.Node, oldZone, newZone string) bool {
 func UpdateAllocations(dir, oldZone, newZone string) ([]string, error) {
 	var updatedFiles []string
 
-	instDir := filepath.Join(dir, "inst")
-	platforms, err := os.ReadDir(instDir)
+	platformsDir := filepath.Join(dir, "platforms")
+	platforms, err := os.ReadDir(platformsDir)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, nil
@@ -194,7 +194,7 @@ func UpdateAllocations(dir, oldZone, newZone string) ([]string, error) {
 			continue
 		}
 
-		nodesDir := filepath.Join(instDir, platform.Name(), "nodes")
+		nodesDir := filepath.Join(platformsDir, platform.Name(), "nodes")
 		nodeFiles, err := os.ReadDir(nodesDir)
 		if err != nil {
 			continue

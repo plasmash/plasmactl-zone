@@ -5,17 +5,17 @@ import (
 	"sort"
 
 	"github.com/launchrctl/launchr/pkg/action"
-	"github.com/plasmash/plasmactl-topology/pkg/topology"
+	"github.com/plasmash/plasmactl-zone/pkg/topology"
 	"github.com/plasmash/plasmactl-component/pkg/component"
 	"github.com/plasmash/plasmactl-node/pkg/node"
 )
 
-// QueryResult is the structured output for topology:query
+// QueryResult is the structured output for zone:query
 type QueryResult struct {
 	Paths []string `json:"paths"`
 }
 
-// Query implements the topology:query command
+// Query implements the zone:query command
 type Query struct {
 	action.WithLogger
 	action.WithTerm
