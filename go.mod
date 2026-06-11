@@ -3,9 +3,9 @@ module github.com/plasmash/plasmactl-zone
 go 1.25.0
 
 require (
-	github.com/launchrctl/launchr v0.22.0
-	github.com/plasmash/plasmactl-component v1.2.3
-	github.com/plasmash/plasmactl-node v1.0.4
+	github.com/launchrctl/launchr v0.23.0
+	github.com/plasmash/plasmactl-component v1.3.0
+	github.com/plasmash/plasmactl-node v1.4.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -125,11 +125,3 @@ require (
 
 // Resolve ambiguous import for genproto split modules
 replace google.golang.org/genproto => google.golang.org/genproto v0.0.0-20241007155032-5fefd90f89a9
-
-replace github.com/plasmash/plasmactl-component => ../plasmactl-component
-
-replace github.com/plasmash/plasmactl-node => ../plasmactl-node
-
-replace github.com/launchrctl/launchr => ../launchr
-
-replace github.com/plasmash/plasmactl-model => ../plasmactl-model
