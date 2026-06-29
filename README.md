@@ -1,10 +1,10 @@
-# plasmactl-topology
+# plasmactl-zone
 
 A [Launchr](https://github.com/launchrctl/launchr) plugin for [Plasmactl](https://github.com/plasmash/plasmactl) that manages the topology structure for Plasma platforms.
 
 ## Overview
 
-`plasmactl-topology` manages the platform's "skeleton" - the structural framework where applications and agents attach. The topology maps logical architecture to physical resources, ensuring components get appropriate compute resources (GPU for AI, storage for data, etc.).
+`plasmactl-zone` manages the platform's "skeleton" - the structural framework where applications and agents attach. The topology maps logical architecture to physical resources, ensuring components get appropriate compute resources (GPU for AI, storage for data, etc.).
 
 ## Features
 
@@ -104,7 +104,7 @@ plasmactl zone:remove platform.interaction.legacy
 ## Project Structure
 
 ```
-plasmactl-topology/
+plasmactl-zone/
 ├── plugin.go                        # Plugin registration
 ├── actions/
 │   ├── add/
